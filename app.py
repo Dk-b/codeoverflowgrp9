@@ -113,7 +113,7 @@ if st.session_state.authenticated:
                 "Date": date.strftime("%Y-%m-%d"),
                 "Category": category,
                 "Type": transaction_type,
-                "Amount": amount if transaction_type == "Income" else -amount,
+                "Amount": f'{amount: .2f}' if transaction_type == "Income" else f'{-amount: .2f},
                 "Notes": notes,
             }
             transactions = pd.concat([transactions, pd.DataFrame([new_transaction])], ignore_index=True)
@@ -163,9 +163,9 @@ if st.session_state.authenticated:
     st.dataframe(user_transactions)
 
     # Summary of income and expenses for the logged-in user
-    income = user_transactions[user_transactions["Type"] == "Income"]["Amount"].sum()
-    expenses = user_transactions[user_transactions["Type"] == "Expense"]["Amount"].sum()
-    balance = income + expenses
+    income = int(user_transactions[user_transactions["Type"] == "Income"]["Amount"].sum())
+    expenses = int(user_transactions[user_transactions["Type"] == "Expense"]["Amount"].sum())
+    balance = int(income + expenses)
 
     st.subheader("Summary")
     st.write(f"*Total Income:* ${income:.2f}")
