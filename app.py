@@ -113,7 +113,7 @@ if st.session_state.authenticated:
                 "Date": date.strftime("%Y-%m-%d"),
                 "Category": category,
                 "Type": transaction_type,
-                "Amount": f'{amount: .2f}' if transaction_type == "Income" else f'{-amount: .2f},
+                "Amount": f'{amount: .2f}' if transaction_type == "Income" else f'{-amount: .2f}',
                 "Notes": notes,
             }
             transactions = pd.concat([transactions, pd.DataFrame([new_transaction])], ignore_index=True)
